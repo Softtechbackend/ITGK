@@ -57,7 +57,7 @@ body {
 }
 
 .btn-secondary {
-  @apply btn bg-secondary hover:bg-secondary-dark text-white;
+  @apply btn bg-secondary hover:bg-accent-dark text-white;
 }
 
 .btn-outline {

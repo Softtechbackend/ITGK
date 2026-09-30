@@ -1,6 +1,4 @@
 import PDFDocument from 'pdfkit';
-import { Readable } from 'stream';
-
 export interface PDFOptions {
   title: string;
   content: string;
@@ -53,10 +51,12 @@ export async function generatePDF(options: PDFOptions): Promise<Buffer> {
 
       // Add footer
       doc.moveDown();
-      doc.fontSize(8).text(`Generated on ${new Date().toLocaleDateString()}`, {
-        align: 'center',
-        color: '#666666',
-      });
+      doc
+        .fontSize(8)
+        .fillColor('#666666')
+        .text(`Generated on ${new Date().toLocaleDateString()}`, {
+          align: 'center',
+        });
 
       doc.end();
     } catch (error) {
@@ -71,6 +71,8 @@ export async function generatePDF(options: PDFOptions): Promise<Buffer> {
  */
 export async function convertDocxToPdf(docxBuffer: Buffer, metadata?: Record<string, string>): Promise<Buffer> {
   try {
+    void docxBuffer;
+    void metadata;
     // This would use mammoth to convert docx to html
     // Then convert html to PDF
     // For now, return a placeholder

@@ -43,6 +43,7 @@
     "zustand": "^4.4.2"
   },
   "devDependencies": {
+    "@types/pdfkit": "^0.17.6",
     "eslint": "^8.55.0",
     "eslint-config-next": "^16.0.0"
   }

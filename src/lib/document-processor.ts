@@ -14,7 +14,11 @@ export async function processDocxTemplate(
   data: TemplateData
 ): Promise<string> {
   try {
-    const result = await mammoth.convertToHtml({ arrayBuffer: docxBuffer });
+    const arrayBuffer = docxBuffer.buffer.slice(
+      docxBuffer.byteOffset,
+      docxBuffer.byteOffset + docxBuffer.byteLength,
+    ) as ArrayBuffer;
+    const result = await mammoth.convertToHtml({ arrayBuffer });
     let html = result.value;
 
     // Replace placeholders with data
@@ -72,10 +76,12 @@ export async function htmlToPdf(htmlContent: string, title: string): Promise<Buf
 
       // Add footer
       doc.moveDown();
-      doc.fontSize(8).text(`Generated on ${new Date().toLocaleDateString('en-IN')}`, {
-        align: 'center',
-        color: '#999999',
-      });
+      doc
+        .fontSize(8)
+        .fillColor('#999999')
+        .text(`Generated on ${new Date().toLocaleDateString('en-IN')}`, {
+          align: 'center',
+        });
 
       doc.end();
     } catch (error) {
